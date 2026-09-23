@@ -1,0 +1,49 @@
+:root {
+    --bg-c: #222222;
+    --bg-c-2: #3a3a3a;
+    --bg-c-btn: #444444;
+    --txt-c: #EEEEEE;
+    --default-padding: 16px;
+    --default-margin: 4px;
+    --default-border: 0px;
+}
+
+* {
+    margin: var(--default-margin);
+    padding: var(--default-padding);
+    border: var(--default-border);
+    color: var(--txt-c);
+}
+
+button {
+    background-color: var(--bg-c-btn);
+}
+
+body {
+    background-color: var(--bg-c);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+
+    padding: 0px;
+    margin: 0px;
+}
+
+#divFloatCreateTask {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: var(--bg-c-2);
+    padding: 64px;
+    border-radius: 25px;
+}
