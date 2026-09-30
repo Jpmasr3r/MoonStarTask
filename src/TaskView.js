@@ -130,6 +130,17 @@ export default class TaskView {
 			const divTask = document.createElement("div");
 			divTask.classList.add("divTask");
 
+			const taskDragHandle = document.createElement("div");
+			taskDragHandle.classList.add("taskDragHandle");
+			taskDragHandle.setAttribute("aria-hidden", "true");
+
+			const taskDragDots = document.createElement("span");
+			taskDragDots.classList.add("taskDragDots");
+
+			const taskDragBar = document.createElement("span");
+			taskDragBar.classList.add("taskDragBar");
+			taskDragHandle.append(taskDragBar, taskDragDots);
+
 			const h1TaskTitle = document.createElement("h1");
 			h1TaskTitle.classList.add("h1TaskTitle");
 			h1TaskTitle.textContent = task.title;
@@ -160,6 +171,7 @@ export default class TaskView {
 			btnTaskStatus.addEventListener("click", () => onFinish(task.id));
 
 			divTask.append(
+				taskDragHandle,
 				h1TaskTitle,
 				pTaskDescription,
 				btnTaskRemove,
