@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-labelledby="title">
+  <title id="title">Tema roxo</title>
+  <defs>
+    <radialGradient id="purpleSphere" cx="32%" cy="26%" r="72%">
+      <stop offset="0" stop-color="#d478ff"/>
+      <stop offset="0.38" stop-color="#9700e4"/>
+      <stop offset="1" stop-color="#51007a"/>
+    </radialGradient>
+    <filter id="purpleShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="1" dy="2" stdDeviation="1.5" flood-color="#210031" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+  <circle cx="8" cy="8" r="7" fill="url(#purpleSphere)" stroke="#9700e4" stroke-width="1" filter="url(#purpleShadow)"/>
+  <circle cx="29" cy="29" r="14" fill="url(#purpleSphere)" stroke="#9700e4" stroke-width="1.5" filter="url(#purpleShadow)"/>
+</svg>

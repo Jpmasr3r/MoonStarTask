@@ -1,49 +1,597 @@
+@import url("https://fonts.googleapis.com/css2?family=Share+Tech&family=Share+Tech+Mono&display=swap");
+
+/* Paletas base */
 :root {
-    --bg-c: #222222;
-    --bg-c-2: #3a3a3a;
-    --bg-c-btn: #444444;
-    --txt-c: #EEEEEE;
-    --default-padding: 16px;
-    --default-margin: 4px;
-    --default-border: 0px;
+	color-scheme: light dark;
+
+	--light-background: #f6f2e9;
+	--light-surface: #fffdf8;
+	--light-surface-strong: #efe8da;
+	--light-text: #24211c;
+	--light-text-muted: #6d665b;
+	--light-border: #ded5c6;
+	--light-highlight: #ffffff;
+	--light-accent: #e49700;
+	--light-accent-strong: #a96f00;
+	--light-accent-contrast: #211600;
+	--light-shadow: rgba(70, 49, 13, 0.14);
+
+	--dark-background: #121016;
+	--dark-surface: #1d1922;
+	--dark-surface-strong: #29222f;
+	--dark-text: #f5f0f7;
+	--dark-text-muted: #bcb3c1;
+	--dark-border: #403647;
+	--dark-highlight: #514759;
+	--dark-accent: #9700e4;
+	--dark-accent-strong: #c253f7;
+	--dark-accent-contrast: #ffffff;
+	--dark-shadow: rgba(0, 0, 0, 0.38);
+
+	--background: var(--light-background);
+	--surface: var(--light-surface);
+	--surface-strong: var(--light-surface-strong);
+	--text: var(--light-text);
+	--text-muted: var(--light-text-muted);
+	--border: var(--light-border);
+	--highlight: var(--light-highlight);
+	--accent: var(--light-accent);
+	--accent-strong: var(--light-accent-strong);
+	--accent-contrast: var(--light-accent-contrast);
+	--shadow: var(--light-shadow);
+
+	--success: #207a4b;
+	--danger: #b53c35;
+	--radius-sm: 4px;
+	--radius-md: 4px;
+	--radius-lg: 8px;
+	--transition: 180ms ease;
+	--font-interface: "Share Tech", Tahoma, Arial, sans-serif;
+	--font-display: "Share Tech Mono", "Courier New", monospace;
 }
 
-* {
-    margin: var(--default-margin);
-    padding: var(--default-padding);
-    border: var(--default-border);
-    color: var(--txt-c);
+@media (prefers-color-scheme: dark) {
+	:root {
+		--background: var(--dark-background);
+		--surface: var(--dark-surface);
+		--surface-strong: var(--dark-surface-strong);
+		--text: var(--dark-text);
+		--text-muted: var(--dark-text-muted);
+		--border: var(--dark-border);
+		--highlight: var(--dark-highlight);
+		--accent: var(--dark-accent);
+		--accent-strong: var(--dark-accent-strong);
+		--accent-contrast: var(--dark-accent-contrast);
+		--shadow: var(--dark-shadow);
+		--success: #39a96b;
+		--danger: #d85b53;
+	}
 }
 
-button {
-    background-color: var(--bg-c-btn);
+:root[data-theme="light"] {
+	color-scheme: light;
+	--background: var(--light-background);
+	--surface: var(--light-surface);
+	--surface-strong: var(--light-surface-strong);
+	--text: var(--light-text);
+	--text-muted: var(--light-text-muted);
+	--border: var(--light-border);
+	--highlight: var(--light-highlight);
+	--accent: var(--light-accent);
+	--accent-strong: var(--light-accent-strong);
+	--accent-contrast: var(--light-accent-contrast);
+	--shadow: var(--light-shadow);
+	--success: #207a4b;
+	--danger: #b53c35;
+}
+
+:root[data-theme="dark"] {
+	color-scheme: dark;
+	--background: var(--dark-background);
+	--surface: var(--dark-surface);
+	--surface-strong: var(--dark-surface-strong);
+	--text: var(--dark-text);
+	--text-muted: var(--dark-text-muted);
+	--border: var(--dark-border);
+	--highlight: var(--dark-highlight);
+	--accent: var(--dark-accent);
+	--accent-strong: var(--dark-accent-strong);
+	--accent-contrast: var(--dark-accent-contrast);
+	--shadow: var(--dark-shadow);
+	--success: #39a96b;
+	--danger: #d85b53;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	min-width: 320px;
+	background: var(--background);
 }
 
 body {
-    background-color: var(--bg-c);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    min-height: 100vh;
-    width: 100%;
-
-    padding: 0px;
-    margin: 0px;
+	min-height: 100vh;
+	margin: 0;
+	padding: clamp(24px, 4vw, 64px);
+	color: var(--text);
+	background-color: var(--background);
+	background-image:
+		linear-gradient(
+			color-mix(in srgb, var(--highlight) 30%, transparent) 1px,
+			transparent 1px
+		),
+		repeating-linear-gradient(
+			135deg,
+			transparent 0,
+			transparent 8px,
+			color-mix(in srgb, var(--border) 24%, transparent) 8px,
+			color-mix(in srgb, var(--border) 24%, transparent) 12px
+		);
+	background-size:
+		100% 4px,
+		auto;
+	font-family: var(--font-interface);
+	line-height: 1.5;
+	text-rendering: optimizeLegibility;
 }
 
-#divFloatCreateTask {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+body::before {
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	background: radial-gradient(
+		circle at 50% -20%,
+		color-mix(in srgb, var(--accent) 18%, transparent),
+		transparent 55%
+	);
+	opacity: 1;
+	content: "";
+	pointer-events: none;
+}
 
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+header,
+#divTasks,
+footer {
+	width: min(100%, 1120px);
+	margin-inline: auto;
+}
 
-    background-color: var(--bg-c-2);
-    padding: 64px;
-    border-radius: 25px;
+header {
+	position: relative;
+	display: grid;
+	grid-template-columns: 1fr auto auto;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 32px;
+	padding: 16px 20px;
+	border: 1px solid color-mix(in srgb, var(--border) 75%, #000000);
+	border-radius: var(--radius-md);
+	background: linear-gradient(
+		to bottom,
+		var(--highlight),
+		var(--surface-strong) 8%,
+		var(--surface) 52%,
+		var(--surface-strong)
+	);
+	box-shadow:
+		inset 0 1px 0 color-mix(in srgb, var(--highlight) 85%, transparent),
+		0 4px 8px var(--shadow);
+}
+
+header::after {
+	position: absolute;
+	right: 8px;
+	bottom: -24px;
+	padding: 4px 8px;
+	color: var(--text-muted);
+	border: 1px solid var(--border);
+	border-top: 0;
+	border-radius: 0 0 4px 4px;
+	background: var(--surface-strong);
+	font-family: var(--font-display);
+	font-size: 0.75rem;
+	letter-spacing: 0.08em;
+	content: "TASK SYSTEM // ONLINE";
+}
+
+#h1Title {
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: clamp(2rem, 4vw, 3.25rem);
+	font-weight: 700;
+	line-height: 0.95;
+	letter-spacing: -0.045em;
+	text-shadow:
+		0 1px 0 var(--highlight),
+		0 4px 4px var(--shadow);
+	text-transform: uppercase;
+}
+
+#h1Title::before {
+	display: block;
+	width: 52px;
+	height: 4px;
+	margin-bottom: 16px;
+	border: 1px solid var(--accent-strong);
+	border-radius: 0;
+	background: var(--accent);
+	box-shadow:
+		inset 0 1px 0 color-mix(in srgb, #ffffff 55%, transparent),
+		0 1px 4px var(--shadow);
+	content: "";
+}
+
+button,
+input,
+textarea {
+	min-height: 44px;
+	border: 1px solid transparent;
+	border-radius: var(--radius-sm);
+	font: inherit;
+}
+
+button {
+	padding: 12px 16px;
+	color: var(--text);
+	border-color: color-mix(in srgb, var(--border) 75%, #000000);
+	background: linear-gradient(
+		to bottom,
+		var(--highlight),
+		var(--surface-strong) 48%,
+		color-mix(in srgb, var(--surface-strong) 82%, #000000)
+	);
+	font-weight: 700;
+	text-shadow: 0 1px 0 var(--highlight);
+	cursor: pointer;
+	box-shadow:
+		inset 0 1px 0 color-mix(in srgb, var(--highlight) 75%, transparent),
+		0 1px 4px var(--shadow);
+	transition:
+		transform var(--transition),
+		border-color var(--transition),
+		background-color var(--transition),
+		box-shadow var(--transition);
+}
+
+button:hover {
+	border-color: var(--accent);
+	transform: none;
+	box-shadow:
+		inset 0 1px 0 var(--highlight),
+		0 0 8px color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+button:active {
+	background: linear-gradient(
+		to bottom,
+		color-mix(in srgb, var(--surface-strong) 82%, #000000),
+		var(--surface-strong)
+	);
+	box-shadow: inset 0 4px 4px var(--shadow);
+	transform: translateY(4px);
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+	outline: 4px solid color-mix(in srgb, var(--accent) 32%, transparent);
+	outline-offset: 4px;
+}
+
+#btnAddTask,
+#btnFloatCreate,
+#btnFloatUpdate,
+#btnFloatFilter {
+	color: var(--accent-contrast);
+	border-color: var(--accent-strong);
+	background: linear-gradient(
+		to bottom,
+		color-mix(in srgb, var(--accent) 55%, #ffffff),
+		var(--accent) 45%,
+		color-mix(in srgb, var(--accent) 72%, #000000)
+	);
+	text-shadow: 0 -1px 0 color-mix(in srgb, var(--accent) 60%, #000000);
+}
+
+#btnFilterTask,
+#btnFilterTask.notfiltred {
+	color: var(--text);
+	border-color: var(--border);
+	background: linear-gradient(
+		to bottom,
+		var(--highlight),
+		var(--surface-strong) 48%,
+		color-mix(in srgb, var(--surface-strong) 82%, #000000)
+	);
+	text-shadow: 0 1px 0 var(--highlight);
+}
+
+#btnFilterTask.filtred {
+	color: var(--accent-contrast);
+	border-color: var(--accent-strong);
+	background: linear-gradient(
+		to bottom,
+		color-mix(in srgb, var(--accent) 56%, #ffffff),
+		var(--accent) 44%,
+		color-mix(in srgb, var(--accent) 72%, #000000)
+	);
+	text-shadow: 0 -1px 0 color-mix(in srgb, var(--accent) 60%, #000000);
+	box-shadow:
+		inset 0 1px 0 color-mix(in srgb, #ffffff 56%, transparent),
+		0 0 8px color-mix(in srgb, var(--accent) 48%, transparent);
+}
+
+#btnToggleTheme {
+	position: fixed;
+	top: 16px;
+	left: 16px;
+	z-index: 20;
+	display: grid;
+	width: 44px;
+	height: 44px;
+	padding: 8px;
+	place-items: center;
+}
+
+#imgToggleTheme {
+	display: block;
+	width: 28px;
+	height: 28px;
+	object-fit: contain;
+}
+
+#divTasks {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 288px), 1fr));
+	gap: 16px;
+	align-items: stretch;
+}
+
+#divTasks:empty {
+	display: grid;
+	min-height: 320px;
+	place-items: center;
+	border: 1px dashed var(--border);
+	border-radius: var(--radius-lg);
+	background: color-mix(in srgb, var(--surface) 84%, transparent);
+	box-shadow: inset 0 0 16px var(--shadow);
+}
+
+#divTasks:empty::after {
+	max-width: 28ch;
+	padding: 24px;
+	color: var(--text-muted);
+	font-family: var(--font-display);
+	font-size: clamp(1.25rem, 4vw, 2rem);
+	font-weight: 700;
+	letter-spacing: -0.04em;
+	text-align: center;
+	content: "Sua lista está livre. Crie uma nova tarefa para começar.";
+}
+
+.divTask {
+	position: relative;
+	display: grid;
+	grid-template-columns: 1fr auto auto;
+	grid-template-rows: auto 1fr auto;
+	gap: 12px 8px;
+	min-height: 248px;
+	padding: 24px;
+	overflow: hidden;
+	border: 1px solid var(--border);
+	border-radius: var(--radius-md);
+	background: linear-gradient(135deg, var(--surface), var(--surface-strong));
+	box-shadow:
+		inset 0 1px 0 var(--highlight),
+		0 4px 8px var(--shadow);
+}
+
+.divTask:hover {
+	border-color: color-mix(in srgb, var(--accent) 60%, var(--border));
+	box-shadow:
+		inset 0 1px 0 var(--highlight),
+		0 4px 8px var(--shadow),
+		0 0 8px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+.divTask::before {
+	position: absolute;
+	inset: 0 auto 0 0;
+	width: 4px;
+	background: var(--accent);
+	box-shadow: inset -1px 0 0 color-mix(in srgb, var(--accent) 58%, #ffffff);
+	content: "";
+}
+
+.h1TaskTitle {
+	grid-column: 1 / -1;
+	margin: 0;
+	overflow-wrap: anywhere;
+	font-family: var(--font-display);
+	font-size: clamp(1.5rem, 4vw, 2rem);
+	font-weight: 700;
+	line-height: 1.15;
+	letter-spacing: -0.045em;
+	text-shadow: 0 1px 0 var(--highlight);
+	text-transform: uppercase;
+}
+
+.pTaskDescription {
+	grid-column: 1 / -1;
+	margin: 0;
+	color: var(--text-muted);
+	overflow-wrap: anywhere;
+}
+
+.btnTaskRemove,
+.btnTaskUpdate,
+.btnTaskStatus {
+	align-self: end;
+	min-height: 40px;
+	padding: 8px 12px;
+	font-size: 0.75rem;
+	text-transform: uppercase;
+}
+
+.btnTaskRemove {
+	grid-column: 3;
+	grid-row: 3;
+	width: 40px;
+	padding-inline: 0;
+	color: var(--danger);
+	background: transparent;
+}
+
+.btnTaskUpdate {
+	grid-column: 2;
+	grid-row: 3;
+	border-color: var(--border);
+	background: transparent;
+}
+
+.btnTaskStatus {
+	grid-column: 1;
+	grid-row: 3;
+	justify-self: start;
+	border-radius: var(--radius-sm);
+}
+
+.taskRunning {
+	color: var(--accent-strong);
+	border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+	background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+}
+
+.taskCompleted {
+	color: var(--success);
+	border-color: color-mix(in srgb, var(--success) 45%, var(--border));
+	background: color-mix(in srgb, var(--success) 12%, var(--surface));
+}
+
+#divFloatCreateTask,
+#divFloatUpdateTask,
+#divFloatFilterTask {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	z-index: 10;
+	display: none;
+	width: min(calc(100% - 32px), 500px);
+	padding: clamp(28px, 8vw, 48px);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-lg);
+	background: linear-gradient(to bottom, var(--surface), var(--surface-strong));
+	box-shadow:
+		inset 0 1px 0 var(--highlight),
+		0 8px 28px var(--shadow),
+		0 0 0 100vmax color-mix(in srgb, var(--background) 72%, transparent);
+	transform: translate(-50%, -50%);
+	flex-direction: column;
+	gap: 16px;
+}
+
+#divFloatCreateTask::before,
+#divFloatUpdateTask::before,
+#divFloatFilterTask::before {
+	margin-bottom: 8px;
+	color: var(--text);
+	font-family: var(--font-display);
+	font-size: clamp(1.75rem, 4vw, 2.5rem);
+	font-weight: 700;
+	line-height: 1;
+	letter-spacing: -0.05em;
+	text-shadow: 0 1px 0 var(--highlight);
+	text-transform: uppercase;
+}
+
+#divFloatCreateTask::before {
+	content: "Nova tarefa";
+}
+
+#divFloatUpdateTask::before {
+	content: "Editar tarefa";
+}
+
+#divFloatFilterTask::before {
+	content: "Filtrar tarefas";
+}
+
+input,
+textarea {
+	width: 100%;
+	padding: 12px 16px;
+	color: var(--text);
+	border-color: var(--border);
+	background: color-mix(in srgb, var(--background) 92%, #000000);
+	box-shadow:
+		inset 0 1px 4px var(--shadow),
+		0 1px 0 var(--highlight);
+	transition:
+		border-color var(--transition),
+		box-shadow var(--transition);
+}
+
+textarea {
+	min-height: 112px;
+	resize: vertical;
+}
+
+input::placeholder,
+textarea::placeholder {
+	color: var(--text-muted);
+}
+
+input:hover,
+input:focus,
+textarea:hover,
+textarea:focus {
+	border-color: var(--accent);
+}
+
+#btnFloatCreate,
+#btnFloatUpdate,
+#btnFloatFilter {
+	width: 100%;
+	margin-top: 8px;
+}
+
+footer {
+	min-height: 48px;
+}
+
+@media (max-width: 680px) {
+	body {
+		padding: 24px 16px;
+	}
+
+	header {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	#h1Title {
+		grid-column: 1 / -1;
+		margin-bottom: 12px;
+	}
+
+	#btnAddTask,
+	#btnFilterTask {
+		width: 100%;
+	}
+
+	.divTask {
+		min-height: 220px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		scroll-behavior: auto;
+		transition-duration: 0ms;
+	}
 }
