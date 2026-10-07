@@ -101,12 +101,34 @@ export default class TaskApp {
 		this.view.toggleFilter(title || description);
 	}
 
+	swapTasks(primaryId, secundaryId) {
+		const primaryIndex = this.tasks.findIndex((task) => task.id === primaryId);
+		const secundaryIndex = this.tasks.findIndex(
+			(task) => task.id === secundaryId,
+		);
+
+		if (primaryIndex === -1 || secundaryIndex === -1) {
+			return;
+		}
+
+		[this.tasks[primaryIndex], this.tasks[secundaryIndex]] = [
+			this.tasks[secundaryIndex],
+			this.tasks[primaryIndex],
+		];
+
+		this.repository.saveAll(this.tasks);
+		this.render();
+	}
+
 	render(tasks = this.tasks) {
 		this.view.render(
 			tasks,
 			(id) => this.removeTask(id),
 			(id) => this.selectTask(id),
 			(id) => this.finishTask(id),
+			(element, onReorder) => this.view.dragTask(element, onReorder),
+			(primaryElement, secundaryElement) =>
+				this.swapTasks(primaryElement, secundaryElement),
 		);
 	}
 }

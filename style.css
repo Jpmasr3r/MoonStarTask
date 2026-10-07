@@ -424,7 +424,7 @@ textarea:focus-visible {
 	opacity: 0.88;
 }
 
-.divTask:active:not(:has(> :active)) .taskDragHandle {
+.taskDragHandle:active {
 	cursor: grabbing;
 	transform: translateY(4px);
 }

@@ -155,16 +155,56 @@ export default class TaskView {
 		}
 	}
 
-	render(tasks, onRemove, onEdit, onFinish) {
+	dragTask(task, onReorder) {
+		task.style.position = "absolute";
+
+		const moveTask = (event) => {
+			task.style.left = `${event.clientX}px`;
+			task.style.top = `${event.clientY}px`;
+		};
+
+		const stopDrag = (event) => {
+			this.body.removeEventListener("pointermove", moveTask);
+			this.body.removeEventListener("pointerup", stopDrag);
+
+			const target = document
+				.elementsFromPoint(event.clientX, event.clientY)
+				.map((element) => element.closest(".divTask"))
+				.find((element) => element && element !== task);
+
+			if (!target) {
+				this.dropTask(task);
+				return;
+			}
+
+			this.dropTask(task);
+			onReorder(task.dataset.taskId, target.dataset.taskId);
+		};
+
+		this.body.addEventListener("pointermove", moveTask);
+		this.body.addEventListener("pointerup", stopDrag);
+	}
+
+	dropTask(task) {
+		task.style.removeProperty("position");
+		task.style.removeProperty("left");
+		task.style.removeProperty("top");
+	}
+
+	render(tasks, onRemove, onEdit, onFinish, onDrag, onReorder) {
 		this.divTasks.replaceChildren();
 
 		for (const task of tasks) {
 			const divTask = document.createElement("div");
 			divTask.classList.add("divTask");
+			divTask.dataset.taskId = task.id;
 
 			const taskDragHandle = document.createElement("div");
 			taskDragHandle.classList.add("taskDragHandle");
 			taskDragHandle.setAttribute("aria-hidden", "true");
+			taskDragHandle.addEventListener("pointerdown", () =>
+				onDrag(divTask, onReorder),
+			);
 
 			const taskDragDots = document.createElement("span");
 			taskDragDots.classList.add("taskDragDots");
