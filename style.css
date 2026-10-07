@@ -325,9 +325,9 @@ textarea:focus-visible {
 		0 0 8px color-mix(in srgb, var(--accent) 48%, transparent);
 }
 
-#btnToggleTheme {
+#btnToggleTheme,
+#btnToggleMusic {
 	position: fixed;
-	top: 16px;
 	left: 16px;
 	z-index: 20;
 	display: grid;
@@ -337,7 +337,16 @@ textarea:focus-visible {
 	place-items: center;
 }
 
-#imgToggleTheme {
+#btnToggleTheme {
+	top: 16px;
+}
+
+#btnToggleMusic {
+	top: 68px;
+}
+
+#imgToggleTheme,
+#imgToggleMusic {
 	display: block;
 	width: 28px;
 	height: 28px;

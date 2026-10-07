@@ -24,6 +24,7 @@ export default class TaskApp {
 			this.view.toggleTheme();
 			this.repository.saveAll(this.tasks, this.view.theme);
 		});
+		this.view.bindToggleMusic(() => this.view.toggleBackgroundMusic());
 		this.render();
 	}
 

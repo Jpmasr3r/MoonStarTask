@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-labelledby="title">
+  <title id="title">Nota musical do tema escuro</title>
+  <defs>
+    <linearGradient id="darkNote" x1="12" y1="42" x2="40" y2="6" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#51007a"/>
+      <stop offset="0.55" stop-color="#9700e4"/>
+      <stop offset="1" stop-color="#d478ff"/>
+    </linearGradient>
+    <filter id="darkShadow" x="-30%" y="-20%" width="170%" height="170%">
+      <feDropShadow dx="1" dy="2" stdDeviation="1.5" flood-color="#210031" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+  <path d="M20 10v23.25a7.5 7.5 0 1 1-4-6.64V13.2L40 7v20.25a7.5 7.5 0 1 1-4-6.64V10.87L20 15v-5Z" fill="url(#darkNote)" stroke="#9700e4" stroke-width="1.25" stroke-linejoin="round" filter="url(#darkShadow)"/>
+</svg>

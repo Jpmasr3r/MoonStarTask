@@ -30,6 +30,31 @@ export default class TaskView {
 		this.html = documentRoot.documentElement;
 		this.btnToggleTheme = documentRoot.getElementById("btnToggleTheme");
 		this.imgToggleTheme = documentRoot.getElementById("imgToggleTheme");
+		this.btnToggleMusic = documentRoot.getElementById("btnToggleMusic");
+		this.imgToggleMusic = documentRoot.getElementById("imgToggleMusic");
+		this.body = documentRoot.body;
+		this.audBackgroundMusic = documentRoot.getElementById("audBackgroundMusic");
+	}
+
+	async toggleBackgroundMusic() {
+		if (this.audBackgroundMusic.paused) {
+			try {
+				await this.audBackgroundMusic.play();
+			} catch {
+				this.btnToggleMusic.disabled = true;
+				this.btnToggleMusic.setAttribute("aria-label", "Música indisponível");
+				this.btnToggleMusic.title = "Música indisponível";
+				return;
+			}
+		} else {
+			this.audBackgroundMusic.pause();
+		}
+
+		const isPlaying = !this.audBackgroundMusic.paused;
+		const label = isPlaying ? "Pausar música" : "Tocar música";
+		this.btnToggleMusic.setAttribute("aria-pressed", String(isPlaying));
+		this.btnToggleMusic.setAttribute("aria-label", label);
+		this.btnToggleMusic.title = label;
 	}
 
 	setTheme(theme) {
@@ -38,6 +63,9 @@ export default class TaskView {
 		this.imgToggleTheme.src = this.theme
 			? "images/tema-escuro.svg"
 			: "images/tema-claro.svg";
+		this.imgToggleMusic.src = this.theme
+			? "images/nota-musical-escuro.svg"
+			: "images/nota-musical-claro.svg";
 	}
 
 	toggleTheme() {
@@ -46,6 +74,10 @@ export default class TaskView {
 
 	bindToggleTheme(handler) {
 		this.btnToggleTheme.addEventListener("click", handler);
+	}
+
+	bindToggleMusic(handler) {
+		this.btnToggleMusic.addEventListener("click", handler);
 	}
 
 	bindOpenCreate(handler) {

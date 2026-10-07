@@ -17,6 +17,8 @@
         <button id="btnFilterTask" type="button">Filtrar</button>
         <button id="btnToggleTheme" type="button"><img id="imgToggleTheme" src="images/tema-escuro.svg"
                 alt="Theme"></button>
+        <button id="btnToggleMusic" type="button" aria-label="Tocar música" aria-pressed="false"
+            title="Tocar música"><img id="imgToggleMusic" src="images/nota-musical-claro.svg" alt=""></button>
     </header>
 
     <div id="divTasks">
@@ -46,6 +48,12 @@
         <textarea name="description" placeholder="Descrição" id="inpFloatFilterDescription" rows="4"></textarea>
         <button id="btnFloatFilter" type="button">Filtrar</button>
     </div>
+
+    <!-- biome-ignore lint/a11y/useMediaCaption: Música instrumental sem conteúdo falado. -->
+    <audio id="audBackgroundMusic" loop>
+        <source src="./audio/moonsetter.mp3" type="audio/mpeg">
+        Seu navegador não suporta áudio.
+    </audio>
 
     <footer>
 
